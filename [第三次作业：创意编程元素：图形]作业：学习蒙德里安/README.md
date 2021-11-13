@@ -1,6 +1,1 @@
-### 作业要求
-
-- 熟悉processing中提供的绘图函数；
-- 分析理解彼埃·蒙德里安的作品风格和构图规则，创作类似彼埃·蒙德里安风格的作品，利用processing中提供的绘图函数进行创作实现。
-
-✏️简单描述你的创意内容，将程序运行结果附在这里。
+//https://tva1.sinaimg.cn/large/008i3skNgy1gwdpi1r7dkj30s60u80ti.jpg
