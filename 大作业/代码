@@ -1,0 +1,68 @@
+void setup() {
+  int n = 30;
+  particles = new Particle[n];
+  for (int i = 0; i < n; i++) {
+    PVector p = new PVector(random(0₇ width), random(0, height)); particles[i] = new Particle(p);
+  } }
+Particle[] particles;
+void sencel() {
+  int n = 30;
+  background(0);
+  for (int i = 0; i < n; i++) {
+    particles[i].addForce(particles[i].attractTo(mouseX, mouseY)); particles[i].run();
+  } }
+class Particle
+{
+  PVector acc, vet, pos;
+  float mass, incr, ang;
+  Particle(PVector p) {
+    pos = p.get();
+    acc = new PVector();
+    vet = new PVector();
+    mass = random(.2, 2);
+    ang = 0;
+    incr = random(-.001, .001);
+  }
+  ﻿
+void run()
+{
+  update();
+  render();
+}
+void update()
+{
+  vel.add(acc);
+  vel.limit(4);
+  pos.add(vel);
+  acc.mult(0);
+}
+void render()
+{
+  float r = random(255);
+  float g = random(255);
+  float b = random(255);
+  rectMode(CENTER);
+  fill(200,r,g,b);
+  stroke(255); strokeWeight(l);
+  ang +二 incr;
+  pushMatrix();
+  translate(pos.x, pos.y);
+  rotate(degrees(ang));
+  ellipse(0f 0, mass*25f mass*25); popMatrix();
+}
+void addForce(PVector force)
+{
+  PVector f = PVector.div(force, mass); acc.add(f);
+}
+PVector attractTo(float xf float y)
+{
+  PVector mousePos = new PVector(x, y);
+  PVector dir = PVector.sub(mousePos, pos);
+  float dist = dir.mag();
+  
+dist = constrain(dist, 15, 25);
+dir.normalize();
+float f = (30*mass)/(dist*dist); dir.mult(f);
+return dir;
+}
+}
