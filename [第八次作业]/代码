@@ -1,0 +1,57 @@
+function setup() {
+	createCanvas(windowWidth, windowHeight);
+	background(0);
+	dudes = [];
+	for (i=399; i--;) {
+		dudes.push({
+			x: width/5,
+			y: height/2,
+			m1: random(0, TWO_PI),
+			m2: random(0, TWO_PI),
+			m3: random(0, TWO_PI),
+			m4: random(0, 100),
+			distance: 0,
+			moves: 0
+		})
+	}
+	noStroke();
+	maxscore = width;
+	bestdude = null;
+}
+
+function draw() {
+	noStroke()
+	target = {x: width/5*4, y: height/2};
+	colorMode(HSL)
+	for (dude of dudes) {
+		fill(round(dude.m1*360/TWO_PI),100,50)
+		ellipse(dude.x, dude.y, 4, 4);
+		dude.x += sin(dude.m1 + sin(dude.m3 + dude.moves/299 * dude.m4) + dude.moves/299) / dude.m4
+		dude.y += cos(dude.m2 + cos(dude.m3 + dude.moves/299 * dude.m4) + dude.moves/299) / dude.m4
+		dude.distance = dist(dude.x, dude.y, target.x, target.y)
+		dude.moves += 1
+		if (dude.distance < maxscore) bestdude = dude, maxscore = dude.distance
+	}
+	stroke('red');
+	strokeWeight(8);
+	fill(0);
+	ellipse(target.x, target.y, 43, 43)
+	if (frameCount%800 == 0 || (keyIsPressed && key=="x")) {
+		for(i of dudes) {
+			i.m1 = (i.m1 + bestdude.m1 * 7) / 8 + random(-1,1)/95
+			i.m2 = (i.m2 + bestdude.m2 * 7) / 8 + random(-1,1)/95
+			i.m3 = (i.m3 + bestdude.m3 * 7) / 8 + random(-1,1)/95
+			i.m4 = (i.m4 + bestdude.m4 * 7) / 8 + random(-1,1)/95
+			i.moves = 0;
+			i.x = width/5
+			i.y = height/2
+		}
+		clear();
+	}
+	noFill();
+	strokeWeight(2);
+	stroke("#fff1")
+	circle(target.x, target.y, maxscore*3)
+	stroke(round(360-bestdude.m1*360/TWO_PI),100,50)
+	circle(bestdude.x, bestdude.y, 5)
+}
